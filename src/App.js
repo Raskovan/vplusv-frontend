@@ -5,13 +5,13 @@ import ProductCard from './components/ProductCard'
 
 class App extends Component {
 	state = {
-		products: []
+		products: [],
+		loading: true
 	}
 
 	productsFetch() {
-		fetch('https://vplusv.herokuapp.com/list')
-			.then(res => res.json())
-			.then(items => this.setState({ products: items.products }))
+		fetch('https://vplusv.herokuapp.com/list').then(res => res.json())
+		.then(items => this.setState({ products: items.products, loading: false }))
 	}
 
 	editInventory(id) {
@@ -30,15 +30,18 @@ class App extends Component {
 
 	componentDidMount() {
 		this.productsFetch()
+		// setTimeout(()=>this.setState({loading:false}), 3000)
 	}
 
+
 	render() {
-		// console.log(this.state.products)
+		console.log(this.state.products);
 		const items = this.state.products.map((product, index) => {
 			return (
 				<ProductCard
 					editInventory={this.editInventory}
 					product={product}
+					loading={this.state.loading}
 					key={index}
 				/>
 			)

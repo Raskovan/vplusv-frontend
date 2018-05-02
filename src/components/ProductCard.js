@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import withLoading from './Loader'
 
 class ProductCard extends Component {
 	constructor(props) {
@@ -84,4 +85,4 @@ class ProductCard extends Component {
 	}
 }
 
-export default ProductCard
+export default withLoading(ProductCard)
