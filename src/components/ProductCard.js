@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import withLoading from './Loader'
 
 class ProductCard extends Component {
 	constructor(props) {
@@ -34,6 +33,7 @@ class ProductCard extends Component {
 			},
 			body: JSON.stringify({ item_id: id })
 		}
+
 		fetch('https://vplusv.herokuapp.com/buy', options)
 			.then(res => res.json())
 			.then(response =>
@@ -59,7 +59,6 @@ class ProductCard extends Component {
 	}
 
 	render() {
-    // console.log(this.state.inventory);
 		const colors = this.props.product.variants.map((variant, index) => {
 			return <option key={index} value={variant.image_id} >{variant.option2}</option>
 		})
@@ -85,4 +84,4 @@ class ProductCard extends Component {
 	}
 }
 
-export default withLoading(ProductCard)
+export default ProductCard

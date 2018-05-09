@@ -9,26 +9,43 @@ function withLoading(MyComponent) {
 			}
 		}
 
-		timeout() {
-			if (this.props.loading) {
-				// console.log(this.state.data)
-				for (let i = 0; i < 4; i++) {
-          // console.log(i);
-					setTimeout(() => {
-						this.setState({ data: this.state.data + '.' })
-					}, 300 * i)
+		// timeout() {
+		// 	if (this.props.loading) {
+		// 		for (let i = 0; i < 4; i++) {
+		// 			setTimeout(() => {
+		// 				this.setState({ data: this.state.data + '.' })
+		// 			}, 300 * i)
+		// 		}
+		// 		setTimeout(() => {
+		// 			this.setState({ data: '' })
+		// 		}, 300 * 4)
+		// 	}
+		// }
+
+		componentDidMount(){
+			this.interval = setInterval(()=> {
+				let newData;
+				if (this.state.data.length > 3) {
+					newData = ""
+				} else {
+					newData = this.state.data + "."
 				}
-				setTimeout(() => {
-					this.setState({ data: '' })
-				}, 300 * 4)
-			}
+
+				this.setState({
+					data: newData
+				})
+			}, 500)
 		}
 
+
 		render() {
-			// console.log(this.state.data)
+			if(!this.props.loading) {
+				clearInterval(this.inteval)
+			}
+
 			return this.props.loading ? (
 				<span>
-					Loading {this.state.data === '' ? this.timeout() : this.state.data}
+					Loading {this.state.data}
 				</span>
 			) : (
 				<MyComponent {...this.props} />
